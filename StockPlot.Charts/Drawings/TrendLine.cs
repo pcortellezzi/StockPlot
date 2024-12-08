@@ -1,7 +1,8 @@
 ﻿using ReactiveUI;
+using ScottPlot;
 using ScottPlot.Avalonia;
 using ScottPlot.Plottable;
-using System.Drawing;
+
 
 namespace StockPlot.Charts.Drawings
 {
@@ -20,7 +21,7 @@ namespace StockPlot.Charts.Drawings
             _line.DragEnabled = true;
             _line.DragEnabledX = true;
             _line.DragEnabledY = true;
-            Color = Color.Red;
+            Color = Colors.Red;
         }
 
         public Color Color
@@ -68,7 +69,7 @@ namespace StockPlot.Charts.Drawings
                     xs[1] = coordinateX;
                     ys[1] = coordinateY;
 
-                    _plot.Plot.Add(_line);
+                    _plot.Plot.Add.Plottable(_line);
 
                     _steps++;
                 }

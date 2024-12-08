@@ -1,19 +1,18 @@
 ﻿using ReactiveUI;
 using ScottPlot.Avalonia;
-using ScottPlot.Plottable;
 using System.Drawing;
 
 namespace StockPlot.Charts.Drawings
 {
     public class VerticalLine : ReactiveObject
     {
-        internal VLine _line = new VLine();
+        internal ScottPlot.Plottables.VerticalLine _line = new();
         private bool _inCreationMode = false;
 
         public VerticalLine()
         {
-            _line.DragEnabled = true;
-            _line.Dragged += _line_Dragged;
+            _line.IsDraggable = true;
+            //_line.Dragged += _line_Dragged;
         }
 
         private void _line_Dragged(object? sender, EventArgs e)
@@ -33,10 +32,10 @@ namespace StockPlot.Charts.Drawings
 
         public Color Color
         {
-            get => _line.Color;
+            get => _line.Color.ToSDColor();
             set
             {
-                _line.Color = value;
+                _line.Color = ScottPlot.Color.FromSDColor(value);
                 this.RaisePropertyChanged(nameof(Color));
             }
         }
@@ -51,7 +50,8 @@ namespace StockPlot.Charts.Drawings
         {
             if (_inCreationMode)
             {
-                (sender as AvaPlot).Plot.Add(_line);
+                //(sender as AvaPlot).Plot.Add(_line);
+                (sender as AvaPlot).Plot.Add.Plottable(_line);
 
                 (double coordinateX, double coordinateY) = (sender as AvaPlot).GetMouseCoordinates();
 

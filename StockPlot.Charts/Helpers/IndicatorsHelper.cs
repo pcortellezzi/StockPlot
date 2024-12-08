@@ -1,7 +1,6 @@
 ﻿using StockPlot.Charts.Controls;
 using StockPlot.Charts.Models;
 using StockPlot.Indicators;
-using System.Runtime.CompilerServices;
 
 namespace StockPlot.Charts
 {
@@ -17,8 +16,8 @@ namespace StockPlot.Charts
                 model.Prices.Select(x => x.Open).ToArray(),
                 model.Prices.Select(x => x.High).ToArray(),
                 model.Prices.Select(x => x.Low).ToArray(),
-                model.Prices.Select(x => x.Close).ToArray(),
-                model.Prices.Select(x => x.Volume).ToArray());
+                model.Prices.Select(x => x.Close).ToArray());
+                //model.Prices.Select(x => x.Volume).ToArray());
         }
 
         public static void ShowProperties(this IndicatorBase indicator, StockChart chart)

@@ -146,7 +146,7 @@ namespace StockPlot.Charts.Controls
             {
                 var type = property.GetValue(Item).GetType();
                 var names = Enum.GetNames(type);
-                var prop = new ComboBox() { Width = Width / 2.5, Items = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 0, 2) };
+                var prop = new ComboBox() { Width = Width / 2.5, ItemsSource = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 0, 2) };
                 prop.GetObservable(ComboBox.SelectedItemProperty).Subscribe(value => property.SetValue(Item, value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);

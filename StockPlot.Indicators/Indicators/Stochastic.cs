@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
@@ -19,9 +19,9 @@ namespace StockPlot.Indicators.Indicators
         {
             IsExternal = true;
 
-            CreateLevel(50, Color.White);
-            CreateLevel(70, Color.Red);
-            CreateLevel(30, Color.LightSeaGreen);
+            CreateLevel(50, Colors.White);
+            CreateLevel(70, Colors.Red);
+            CreateLevel(30, Colors.LightSeaGreen);
         }
 
         public override void Init()
@@ -29,7 +29,7 @@ namespace StockPlot.Indicators.Indicators
             Name = $"Stochastic [{K},{Fast},{Slow}]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             var sto = new double[total];
             var slow = new double[total];

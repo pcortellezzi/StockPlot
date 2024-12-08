@@ -1,5 +1,4 @@
-﻿using ScottPlot.Drawing;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace ScottPlot.Plottable
 {
@@ -50,9 +49,9 @@ namespace ScottPlot.Plottable
         public int YAxisIndex { get; set; } = 0;
         public string Label { get; set; } = null;
         public Color Color { get => LineColor; set { LineColor = value; MarkerColor = value; } }
-        public Color LineColor { get; set; } = Color.Black;
-        public Color MarkerColor { get; set; } = Color.Black;
-        public LineStyle LineStyle { get; set; } = LineStyle.Solid;
+        public Color LineColor { get; set; } = Colors.Black;
+        public Color MarkerColor { get; set; } = Colors.Black;
+        public LinePattern LinePattern { get; set; } = LinePattern.Solid;
         public MarkerShape MarkerShape { get; set; } = MarkerShape.filledCircle;
 
         private double _lineWidth = 1;
@@ -288,10 +287,10 @@ namespace ScottPlot.Plottable
                 throw new InvalidOperationException("Y data must not contain Infinity");
 
             return new AxisLimits(
-                xMin: limits[0] + OffsetX,
-                xMax: limits[1] + OffsetX,
-                yMin: limits[2] + OffsetY,
-                yMax: limits[3] + OffsetY);
+                limits[0] + OffsetX,
+                limits[1] + OffsetX,
+                limits[2] + OffsetY,
+                limits[3] + OffsetY);
         }
 
         private AxisLimits GetAxisLimitsThrowOnNaN()

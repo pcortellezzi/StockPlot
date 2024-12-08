@@ -14,7 +14,7 @@ namespace StockPlot.Indicators.Indicators
             Name = $"Exponential Moving Average [{Period}]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             for (int i = 0; i < total; i++)
             {

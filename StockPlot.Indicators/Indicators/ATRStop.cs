@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
@@ -6,8 +6,8 @@ namespace StockPlot.Indicators.Indicators
     {
         private ATR ATR_;
 
-        public XYSerie UpTrend { get; private set; } = new XYSerie("Up trend") { DefaultColor = Color.LightGreen, Lenght = 2 };
-        public XYSerie DownTrend { get; private set; } = new XYSerie("Down trend") { DefaultColor = Color.OrangeRed, Lenght = 2 };
+        public XYSerie UpTrend { get; private set; } = new XYSerie("Up trend") { DefaultColor = Colors.LightGreen, Lenght = 2 };
+        public XYSerie DownTrend { get; private set; } = new XYSerie("Down trend") { DefaultColor = Colors.OrangeRed, Lenght = 2 };
 
         [IndicatorParameter]
         public int Period { get; set; } = 14;
@@ -22,9 +22,9 @@ namespace StockPlot.Indicators.Indicators
             ATR_ = new ATR() { Period = Period };
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
-            this.ATR_.Calculate(total, time, open, high, low, close, volume);
+            this.ATR_.Calculate(total, time, open, high, low, close);
 
             var _trend = new int[1];
             var _downBuffer = new double[total];

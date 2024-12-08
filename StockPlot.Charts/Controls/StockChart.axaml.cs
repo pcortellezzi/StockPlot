@@ -3,10 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using ScottPlot;
 using ScottPlot.Avalonia;
-using ScottPlot.Plottable;
+using ScottPlot.Plottables;
 using StockPlot.Charts.Helpers;
 using StockPlot.Charts.Models;
 using System.Text;
+using Color = ScottPlot.Color;
 
 namespace StockPlot.Charts.Controls
 {
@@ -16,10 +17,11 @@ namespace StockPlot.Charts.Controls
         private Grid _mainArea;
         private AvaPlot _pricePlot;
         private DisplayPrice _chartType = DisplayPrice.OHLC;
-        
-        private FinancePlot _candlesPlot, _ohlcsPlot;
+
+        private CandlestickPlot _candlesPlot;
+        private OhlcPlot _ohlcsPlot;
         private TextBlock _mouseTxtBlock;
-        private HLine _lastPriceLine;
+        private HorizontalLine _lastPriceLine;
         private IndicatorsManager _indicatorsManager;
         private DrawingManager _drawingManager;
         internal PropertyGrid _propertyGrid;
@@ -75,7 +77,7 @@ namespace StockPlot.Charts.Controls
             PlotHelper.SetupBasicPlot(_pricePlot, StockChartID);
 
             // create the price line
-            _lastPriceLine = _pricePlot.Plot.AddHorizontalLine(0, System.Drawing.Color.FromArgb(23, 62, 113), 1, LineStyle.Dot);
+            _lastPriceLine = _pricePlot.Plot.Add.HorizontalLine(0, 1, ScottPlot.Color.FromHex("#173e71"), LinePattern.Dotted);
             _lastPriceLine.PositionLabel = true;
             _lastPriceLine.PositionLabelOppositeAxis = true;
             _lastPriceLine.IgnoreAxisAuto = true;
@@ -83,8 +85,8 @@ namespace StockPlot.Charts.Controls
             _lastPriceLine.YAxisIndex = 1;
 
             // init the price series
-            _candlesPlot = _pricePlot.Plot.AddCandlesticks(PricesModel.Prices.ToArray());            
-            _ohlcsPlot = _pricePlot.Plot.AddOHLCs(PricesModel.Prices.ToArray());            
+            _candlesPlot = _pricePlot.Plot.Add.Candlestick(PricesModel.Prices.ToArray());            
+            _ohlcsPlot = _pricePlot.Plot.Add.OHLC(PricesModel.Prices.ToList());            
 
             // setup the  axis
             _candlesPlot.YAxisIndex = 1;
@@ -107,12 +109,13 @@ namespace StockPlot.Charts.Controls
             _ohlcsPlot.AddRange(model.Prices.ToArray());
             _lastPriceLine.Y = model.Prices.Last().Close;
 
-            _pricePlot.Plot.AxisAuto();
+            _pricePlot.Plot.Axes.AutoScale();
             _pricePlot.Refresh();
 
             model.OnBarAdded += (bars) =>
             {
                 _candlesPlot.AddRange(bars);
+                _candlesPlot.
                 _ohlcsPlot.AddRange(bars);
                 _lastPriceLine.Y = bars.Last().Close;
                 _pricePlot.Refresh();
@@ -137,7 +140,7 @@ namespace StockPlot.Charts.Controls
             set 
             {
                 SetValue(CandleUpFillProperty, value);
-                _candlesPlot.ColorUp = value.ConvertToColor();
+                _candlesPlot.RisingColor = Color.FromColor(value.ConvertToColor());
                 _pricePlot.Refresh();
             } 
         }
@@ -150,23 +153,23 @@ namespace StockPlot.Charts.Controls
             set
             {
                 SetValue(CandleDownFillProperty, value);
-                _candlesPlot.ColorDown = value.ConvertToColor();
+                _candlesPlot.FallingColor = Color.FromColor(value.ConvertToColor());
                 _pricePlot.Refresh();
             }
         }
 
-        public static StyledProperty<IBrush> CandleWickProperty = AvaloniaProperty.Register<StockChart, IBrush>(nameof(CandleWickColor));
-
-        public IBrush CandleWickColor
-        {
-            get => GetValue(CandleWickProperty);
-            set
-            {
-                SetValue(CandleWickProperty, value);
-                _candlesPlot.WickColor = value.ConvertToColor();
-                _pricePlot.Refresh();
-            }
-        }
+        // public static StyledProperty<IBrush> CandleWickProperty = AvaloniaProperty.Register<StockChart, IBrush>(nameof(CandleWickColor));
+        //
+        // public IBrush CandleWickColor
+        // {
+        //     get => GetValue(CandleWickProperty);
+        //     set
+        //     {
+        //         SetValue(CandleWickProperty, value);
+        //         _candlesPlot.WickColor = value.ConvertToColor();
+        //         _pricePlot.Refresh();
+        //     }
+        // }
 
         public static StyledProperty<DisplayPrice> DisplayPriceProperty = AvaloniaProperty.Register<StockChart, DisplayPrice>(nameof(DisplayPrice), DisplayPrice.Candlestick);
 

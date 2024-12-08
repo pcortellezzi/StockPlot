@@ -1,13 +1,13 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
     public sealed class MACD : IndicatorBase
     {
 
-        public XYSerie Histo { get; } = new XYSerie("Histogram") { PlotType = PlotType.Histogram, DefaultColor = Color.Blue };
-        public XYSerie Main { get; } = new XYSerie("Main line") { PlotType = PlotType.Line, DefaultColor = Color.IndianRed, Lenght = 2 };
-        public XYSerie Signal_ { get; } = new XYSerie("Signal") { PlotType = PlotType.Line, DefaultColor = Color.Green };
+        public XYSerie Histo { get; } = new XYSerie("Histogram") { PlotType = PlotType.Histogram, DefaultColor = Colors.Blue };
+        public XYSerie Main { get; } = new XYSerie("Main line") { PlotType = PlotType.Line, DefaultColor = Colors.IndianRed, Lenght = 2 };
+        public XYSerie Signal_ { get; } = new XYSerie("Signal") { PlotType = PlotType.Line, DefaultColor = Colors.Green };
 
         [IndicatorParameter]
         public int Fast { get; set; } = 12;
@@ -33,11 +33,11 @@ namespace StockPlot.Indicators.Indicators
             this.Name = $"MACD [{Fast}, {Slow}, {Signal}]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             this.Minus_.Clear();
-            this.Fast_.Calculate(total, time, open, high, low, close, volume);
-            this.Slow_.Calculate(total, time, open, high, low, close, volume);
+            this.Fast_.Calculate(total, time, open, high, low, close);
+            this.Slow_.Calculate(total, time, open, high, low, close);
 
             for (int i = 0; i < total; i++)
             {

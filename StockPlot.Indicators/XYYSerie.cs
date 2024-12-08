@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
+using ScottPlot;
 
 namespace StockPlot.Indicators
 {
@@ -8,7 +8,7 @@ namespace StockPlot.Indicators
     {
         public string SerieName { get; set; }
         public bool IsEnabled { get; set; } = true;
-        public Color Color { get; set; } = Color.Green;
+        public Color Color { get; set; } = Colors.Green;
 
         public XYYSerie(string serieName)
         {

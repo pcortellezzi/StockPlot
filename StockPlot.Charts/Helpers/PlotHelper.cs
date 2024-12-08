@@ -31,11 +31,11 @@ namespace StockPlot.Charts.Helpers
             //plot.Configuration.LockVerticalAxis = true;
 
             // init the crosshair
-            var _crossHair = plot.Plot.AddCrosshair(0, 0);
+            var _crossHair = plot.Plot.Add.Crosshair(0, 0);
             _crossHair.IgnoreAxisAuto = true;
-            _crossHair.LineStyle = LineStyle.Dash;
+            _crossHair.LinePattern = LinePattern.Dashed;
             _crossHair.LineWidth = 1;
-            _crossHair.Color = System.Drawing.Color.DarkGray;
+            _crossHair.LineColor = Colors.DarkGray;
             _crossHair.VerticalLine.PositionFormatter = pos => DateTime.FromOADate(pos).ToString();
             _crossHair.HorizontalLine.PositionLabel = true;
             _crossHair.HorizontalLine.PositionLabelOppositeAxis = true;
@@ -73,7 +73,7 @@ namespace StockPlot.Charts.Helpers
 
             plot.DoubleTapped += (o, e) =>
             {
-                plot.Plot.AxisAuto();
+                plot.Plot.Axes.AutoScale();
                 plot.Refresh();
 
                 ResetZoom(stockChartID);
@@ -84,7 +84,7 @@ namespace StockPlot.Charts.Helpers
                 if (id != stockChartID)
                     return;
 
-                plot.Plot.AxisAuto();
+                plot.Plot.Axes.AutoScale();
                 plot.Refresh();
             };
 
@@ -92,7 +92,7 @@ namespace StockPlot.Charts.Helpers
             // auto y on zoom
             plot.AxesChanged += (o, e) =>
             {
-                plot.Plot.AxisAutoY();
+                plot.Plot.Axes.AutoScaleY();
             };
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
@@ -12,9 +12,9 @@ namespace StockPlot.Indicators.Indicators
 
             IsExternal = true;
 
-            CreateLevel(0, Color.White);
-            CreateLevel(100, Color.Gray);
-            CreateLevel(-100, Color.Gray);
+            CreateLevel(0, Colors.White);
+            CreateLevel(100, Colors.Gray);
+            CreateLevel(-100, Colors.Gray);
         }
 
         public override void Init()
@@ -22,9 +22,9 @@ namespace StockPlot.Indicators.Indicators
             Name = $"CCI [{Period}]";
         }
 
-        public XYSerie Cci { get; private set; } = new XYSerie("CCI") { DefaultColor = Color.BlueViolet };
+        public XYSerie Cci { get; private set; } = new XYSerie("CCI") { DefaultColor = Colors.BlueViolet };
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             var meanDeviationList = new double[total];
 

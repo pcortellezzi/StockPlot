@@ -1,10 +1,10 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
     public sealed class ATR : IndicatorBase
     {
-        public XYSerie Atr { get; private set; } = new XYSerie("ATR") { DefaultColor = Color.OrangeRed };
+        public XYSerie Atr { get; private set; } = new XYSerie("ATR") { DefaultColor = Colors.OrangeRed };
 
         [IndicatorParameter]
         public int Period { get; set; } = 14;
@@ -19,7 +19,7 @@ namespace StockPlot.Indicators.Indicators
             Name = $"Average True Range (ATR) [{this.Period}]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             if (total <= 0)
                 return;

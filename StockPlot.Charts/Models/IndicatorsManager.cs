@@ -43,7 +43,7 @@ namespace StockPlot.Charts.Models
             foreach(var manager in allIndicators)
             {
                 manager._indicator.Calc(newModel);
-                manager._plotArea.Plot.AxisAuto();
+                manager._plotArea.Plot.Axes.AutoScale();
                 manager._plotArea.Refresh();
 
                 _stockChart.PricesModel.OnTick += (bar) =>
@@ -153,7 +153,7 @@ namespace StockPlot.Charts.Models
                     {
                         subIndicator.nameTxtBlock.Content = indicator.Name;
                         //reset the zoom to fit the area
-                        plotArea.Plot.AxisAutoY();
+                        plotArea.Plot.Axes.AutoScaleY();
                     }                       
                 };
             }
@@ -163,7 +163,7 @@ namespace StockPlot.Charts.Models
 
             //reset the zomm
             if(indicator.IsExternal)
-                plotArea.Plot.AxisAuto();          
+                plotArea.Plot.Axes.AutoScale();          
         }
 
         private void addSubChart(UserControl chart)

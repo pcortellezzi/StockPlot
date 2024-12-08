@@ -1,7 +1,8 @@
 ﻿using Avalonia.Controls.Documents;
 using ReactiveUI;
+using ScottPlot;
 using ScottPlot.Avalonia;
-using ScottPlot.Plottable;
+using ScottPlot.Plottables;
 using StockPlot.Indicators;
 using System.Drawing;
 using System.Windows.Input;
@@ -13,7 +14,7 @@ namespace StockPlot.Charts.Models
         internal IndicatorBase _indicator;
         internal AvaPlot _plotArea;
         // this list is used when the indicator will be deleted. We have to clear the series from the main area
-        private List<IPlottable> _series = new List<IPlottable>();
+        private List<IPlottable> _series = new();
 
         public IndicatorItemManager(IndicatorBase indicator, AvaPlot priceArea)
         {
@@ -34,8 +35,8 @@ namespace StockPlot.Charts.Models
                 switch (serie.PlotType)
                 {
                     case PlotType.Line:
-                        var lineStyle = serie.PlotType == PlotType.DashedLine ? ScottPlot.LineStyle.DashDot : serie.PlotType == PlotType.Dot ? ScottPlot.LineStyle.Dot : ScottPlot.LineStyle.Solid;
-                        var line = _plotArea.Plot.AddScatterLines(null, null, serie.DefaultColor, serie.Lenght, lineStyle);
+                        var lineStyle = serie.PlotType == PlotType.DashedLine ? LinePattern.Dashed : serie.PlotType == PlotType.Dot ? LinePattern.Dotted : LinePattern.Solid;
+                        var line = _plotArea.Plot.Add.ScatterLines(null, null, serie.DefaultColor, serie.Lenght, lineStyle);
                         line.OnNaN = ScatterPlot.NanBehavior.Gap;
                         line.YAxisIndex = 1;
                         // add the serie to the whoe list to clear in on removeing indictors
@@ -110,7 +111,8 @@ namespace StockPlot.Charts.Models
 
             foreach (var level in _indicator.Levels)
             {
-                var line = _plotArea.Plot.AddHorizontalLine(level.Y, level.LevelColor, label: level.Y.ToString());
+                var line = _plotArea.Plot.Add.HorizontalLine(level.Y, level.LevelColor);
+                line.Text = level.Y.ToString();
                 line.PositionLabel = true;
                 line.PositionLabelOppositeAxis = true;
                 line.IgnoreAxisAuto = true;

@@ -1,17 +1,17 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 using System.Linq;
 
 namespace StockPlot.Indicators.Indicators
 {
     public sealed class BollingerBands : IndicatorBase
     {
-        public XYSerie Middle { get; } = new XYSerie("Middle") { DefaultColor = Color.FromArgb(50, Color.Blue) };
+        public XYSerie Middle { get; } = new XYSerie("Middle") { DefaultColor = Color.FromARGB(0x7f0000ff) };
 
-        public XYSerie Up { get; private set; } = new XYSerie("Up") { DefaultColor = Color.FromArgb(50, Color.Blue) };
+        public XYSerie Up { get; private set; } = new XYSerie("Up") { DefaultColor = Color.FromARGB(0x7f0000ff) };
 
-        public XYSerie Down { get; private set; } = new XYSerie("Down") { DefaultColor = Color.FromArgb(50, Color.Blue) };
+        public XYSerie Down { get; private set; } = new XYSerie("Down") { DefaultColor = Color.FromARGB(0x7f0000ff) };
 
-        public XYYSerie Cloud { get; private set; } = new XYYSerie("Cloud") { Color = Color.Blue };
+        public XYYSerie Cloud { get; private set; } = new XYYSerie("Cloud") { Color = Colors.Blue };
 
         [IndicatorParameter]
         public int Period { get; set; } = 20;
@@ -25,7 +25,7 @@ namespace StockPlot.Indicators.Indicators
             AddFill("Up", "Down");
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             for (int i = 0; i < total; i++)
             {

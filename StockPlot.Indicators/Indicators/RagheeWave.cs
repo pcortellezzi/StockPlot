@@ -13,7 +13,7 @@ namespace StockPlot.Indicators.Indicators
             AddFill("Lower", "Upper");
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             var highValues = new double[total];
             var lowValues = new double[total];

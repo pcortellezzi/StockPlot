@@ -203,7 +203,7 @@ namespace ScottPlot.Avalonia
             {
                 try
                 {
-                    Plot.Title($"ScottPlot {Plot.Version}");
+                    Plot.Title($"ScottPlot {Version.VersionString}");
                     Plot.Render();
                 }
                 catch (Exception e)

@@ -1,13 +1,13 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 using System.Linq;
 
 namespace StockPlot.Indicators.Indicators
 {
     public sealed class Donchian : IndicatorBase
     {
-        public XYSerie Up { get; private set; } = new XYSerie("Up") { DefaultColor = Color.Green };
+        public XYSerie Up { get; private set; } = new XYSerie("Up") { DefaultColor = Colors.Green };
 
-        public XYSerie Down { get; private set; } = new XYSerie("Down") { DefaultColor = Color.OrangeRed };
+        public XYSerie Down { get; private set; } = new XYSerie("Down") { DefaultColor = Colors.OrangeRed };
 
         [IndicatorParameter]
         public int Period { get; set; } = 14;
@@ -22,7 +22,7 @@ namespace StockPlot.Indicators.Indicators
             Name = $"Donchian Channel [{this.Period}]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             for (int i = 0; i < total; i++)
             {

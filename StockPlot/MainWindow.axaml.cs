@@ -29,7 +29,7 @@ public partial class MainWindow : Window
 
     private async Task getDataFromBinance()
     {
-        var client = new BinanceClient();
+        var client = new BinanceRestClient();
 
         var request = await client.SpotApi.ExchangeData.GetUiKlinesAsync(_symbol, Binance.Net.Enums.KlineInterval.OneHour, limit: 500);
 
@@ -43,7 +43,7 @@ public partial class MainWindow : Window
             _chart.PricesModel = model;
 
             var socket = new BinanceSocketClient();
-            await socket.SpotStreams.SubscribeToKlineUpdatesAsync(_symbol, Binance.Net.Enums.KlineInterval.OneHour, async (data) =>
+            await socket.SpotApi.ExchangeData.SubscribeToKlineUpdatesAsync(_symbol, Binance.Net.Enums.KlineInterval.OneHour, async (data) =>
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
@@ -51,9 +51,8 @@ public partial class MainWindow : Window
 
                     var toUpdate = model.Prices.FirstOrDefault(x => x.DateTime == candle.OpenTime);
 
-                    if (toUpdate != null)
+                    if (toUpdate.DateTime == candle.OpenTime)
                     {
-                        toUpdate.Volume = (double)candle.Volume;
                         toUpdate.High = (double)candle.HighPrice;
                         toUpdate.Close = (double)candle.ClosePrice;
                         toUpdate.Low = (double)candle.LowPrice;

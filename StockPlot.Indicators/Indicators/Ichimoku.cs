@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators.Indicators
 {
@@ -12,10 +12,10 @@ namespace StockPlot.Indicators.Indicators
         public int InpSenkou { get; set; } = 52;
 
         public XYSerie Tenkan { get; } = new XYSerie("Tenkan");
-        public XYSerie Kijun { get; } = new XYSerie("Kijun") { DefaultColor = Color.Red };
-        public XYSerie Chikou { get; } = new XYSerie("Chikou") { DefaultColor = Color.Blue };
-        public XYSerie CloudA { get; } = new XYSerie("CouldA") { DefaultColor = Color.FromArgb(50, Color.Green) };
-        public XYSerie CloudB { get; } = new XYSerie("CloudB") { DefaultColor = Color.FromArgb(50, Color.Green) };
+        public XYSerie Kijun { get; } = new XYSerie("Kijun") { DefaultColor = Colors.Red };
+        public XYSerie Chikou { get; } = new XYSerie("Chikou") { DefaultColor = Colors.Blue };
+        public XYSerie CloudA { get; } = new XYSerie("CouldA") { DefaultColor = Color.FromARGB(0x7F00FF00) };
+        public XYSerie CloudB { get; } = new XYSerie("CloudB") { DefaultColor = Color.FromARGB(0X7F00FF00) };
 
         public XYYSerie Cloud { get; } = new XYYSerie("Cloud");
 
@@ -24,7 +24,7 @@ namespace StockPlot.Indicators.Indicators
             Name = $"Ichimoku [Tenkan ({InpTenkan}), Kijun ({InpKijun}), Senkou ({InpSenkou})]";
         }
 
-        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        protected override void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             var span = (time[1] - time[0]).TotalMinutes;
 

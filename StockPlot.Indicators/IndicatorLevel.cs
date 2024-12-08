@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ScottPlot;
 
 namespace StockPlot.Indicators
 {
@@ -11,7 +11,7 @@ namespace StockPlot.Indicators
         }
 
         public double Y { get; }
-        public Color LevelColor { get; set; } = Color.Red;
+        public Color LevelColor { get; set; } = Colors.Red;
         public bool IsEnabled { get; set; } = true;
     }
 }

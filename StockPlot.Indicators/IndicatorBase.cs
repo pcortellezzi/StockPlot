@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
+using ScottPlot;
 
 namespace StockPlot.Indicators
 {
@@ -95,7 +95,7 @@ namespace StockPlot.Indicators
                 .ToList();
         }
 
-        protected abstract void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume);
+        protected abstract void Calculate_(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close);
 
         public virtual void Init() { }
 
@@ -109,14 +109,14 @@ namespace StockPlot.Indicators
             _fills.Add(new Fill(serieAName, serieBName));
         }
 
-        public bool Calculate(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close, double[] volume)
+        public bool Calculate(int total, DateTime[] time, double[] open, double[] high, double[] low, double[] close)
         {
             try
             {
                 _xyySeries.ForEach(s => s.Clear());
                 _xySeries.ForEach(s => s.Clear());
 
-                this.Calculate_(total, time, open, high, low, close, volume);
+                this.Calculate_(total, time, open, high, low, close);
 
                 this.OnCalculated?.Invoke();
 

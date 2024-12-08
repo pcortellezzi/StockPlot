@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
+using ScottPlot;
 
 namespace StockPlot.Indicators
 {
@@ -7,7 +7,7 @@ namespace StockPlot.Indicators
     public class XYSerie : List<(DateTime Time,double Value)>
     {
         public PlotType PlotType { get; set; } = PlotType.Line;
-        public Color DefaultColor { get; set; } = Color.Red;
+        public Color DefaultColor { get; set; } = Colors.Red;
         public int Lenght { get; set; } = 1;
         public bool IsEnabled { get; set; } = true;
         public string SerieName { get; }

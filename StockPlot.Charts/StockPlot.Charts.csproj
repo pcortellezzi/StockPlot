@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview6" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview6" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview6" />
-    <PackageReference Include="ScottPlot" Version="4.1.63" />
+    <PackageReference Include="Avalonia" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
+    <PackageReference Include="ScottPlot" Version="5.0.47" />
   </ItemGroup>
 
   <ItemGroup>
